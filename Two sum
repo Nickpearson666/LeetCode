@@ -1,0 +1,23 @@
+题目描述：
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+思考：
+这道题原本最初的想法是利用暴力搜索，可以得出正确答案，但是时间复杂度是O n2。最佳答案是利用JAVA的特性,HashMap 利用键值对进行搜索，这样
+时间复杂度是On,非常方便。另外如果没有找到，可以直接throw一个异常即可。
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+      Map<Integer,Integer> map = new HashMap<>();
+      for (int i = 0;i<nums.length;i++){
+          map.put(nums[i],i);
+      }
+      for (int i = 0 ;i<nums.length;i++){
+          int sub = target - nums[i];
+          if (map.containsKey(sub)&&(map.get(sub)!=i)){
+              return new int[]{i,map.get(sub)};
+          }
+      }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+   
+}
