@@ -1,0 +1,27 @@
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+思路；
+1.刚开始的思路是将链表中的每一个数字先求和，再加起来，再转化成字符串存储的链表中。但是这样的做的结果是int,long会溢出，当数据特别大的时候，这个
+结果就不正确。参考了给出的答案后，直接遍历两个链表，然后要注意carry进位。最后结束的话，如果有结尾，还要人为的加入一个1。
+2.三目运算符同时可以使得代码更加简洁. int  x = (p!=null)? p.val:0;
+Code:
+  public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode(0);
+        ListNode p =l1 ,q = l2, curr = dummyHead;
+        int carry = 0;
+        while ((p!=null)||(q!=null)){
+            int x = (p!=null)? p.val : 0;
+            int y = (q!=null)? q.val : 0;
+            int sum = carry + x + y;
+            carry = sum/10;
+            curr.next = new ListNode(sum %10);
+            curr = curr.next;
+            if (p !=null) p = p.next;
+            if (q !=null) q = q.next;
+        }
+         if (carry > 0){
+             curr.next = new ListNode(carry);
+         }
+       return dummyHead.next;  
+ }
