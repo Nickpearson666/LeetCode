@@ -1,0 +1,17 @@
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+寻找最大的子数组
+暴力搜索的时间复杂度n2
+优化算法O（n）：
+遍历整个数组，计算sum，同时进行比较。将sum和 sum-sumMin比较，更新答案。
+
+ public int maxSubArray(int[] nums) {
+        int maxSum = nums[0];
+        int sum = 0;
+        int minSum = 0;
+        for (int num :nums) {
+        	sum  += num;
+        	maxSum  = Math.max(maxSum,sum-minSum);
+        	minSum = Math.min(minSum, sum);
+        }
+        return maxSum;
+}
