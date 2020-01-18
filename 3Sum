@@ -1,0 +1,41 @@
+Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+这道题注意：
+1。双指针法，固定一个元素，寻找另外两个元素
+2.移动的规则要注意：不要越界，同时如果和小于0,向右移动
+如果和大于0，向左移动。
+
+
+ public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new  ArrayList<List<Integer>>();
+        if (nums.length == 0) return res;
+        Arrays.sort(nums);
+        if (nums[0] > 0) return res;
+        
+        for (int left = 0; left < nums.length -2; left++){
+            int middle = left + 1;
+            int right = nums.length -1;
+            if (left>0&&(nums[left]==nums[left-1])) continue;
+            while (middle < right){
+                if (nums[left]+nums[middle]+nums[right]==0){
+                    List<Integer> temp = new ArrayList<Integer>();
+                    temp.add(nums[left]);
+                    temp.add(nums[middle]);
+                    temp.add(nums[right]);
+                    res.add(temp);
+                    while((middle<nums.length-1)&&nums[middle]==nums[middle + 1]) middle++;
+                    while((right>2)&&nums[right]==nums[right -1]) right--;
+                    middle++;
+                    right--;
+                }
+                else if(nums[left]+nums[middle]+nums[right]<0){
+                    while((middle<nums.length-1)&&nums[middle]==nums[middle + 1]) middle++;
+                    middle++;
+                }else{
+                    while((right>2)&&nums[right]==nums[right -1]) right--;
+                    right--;
+                }
+            }
+            
+        }
+        return res;
+}
