@@ -1,0 +1,20 @@
+思路：
+遍历整个数组，将数组中元素-1后就对应元素在数组中的下标，然后将对应下标上的元素置为相反数。
+第二次遍历的时候，可以查看大于0的元素，将他们的下标+1放到list里，这样就OK。
+ public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> res = new ArrayList<Integer>();
+        
+        for (int i = 0;i < nums.length;i++){
+            int val = Math.abs(nums[i]) -1;
+            if (nums[val] > 0){
+                nums[val] = -nums[val];
+            }
+        }
+        
+        for (int i = 0;i < nums.length;i++){
+            if (nums[i]>0){
+                res.add(i+1);
+            }
+        }
+        return res;
+    }
