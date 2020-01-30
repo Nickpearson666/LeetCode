@@ -1,0 +1,19 @@
+新學到一個算法，摩爾投票法
+总体思想就是消除冗余的数字，如果这个数字是众数，一定出现次数比其他的数字多。
+ public int majorityElement(int[] nums) {
+       int major = nums[0];
+        int count = 1;
+        for (int i = 1; i < nums.length; i++){
+          if (count ==0){
+            major = nums[i];
+            count=1;
+          }else if(major==nums[i]){
+              count++;
+          }else{
+              count--;
+          }
+        }
+        return major;
+    }
+    
+    但是这个最有效的方法就是排序，然后直接return中间的数字。
